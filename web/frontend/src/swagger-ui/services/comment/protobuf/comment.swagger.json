@@ -1,0 +1,179 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "services/comment/protobuf/comment.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/comment": {
+      "post": {
+        "summary": "Создание записи",
+        "operationId": "Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufCreateCommentResponse"
+            }
+          }
+        },
+        "tags": [
+          "CommentService"
+        ]
+      }
+    },
+    "/api/v1/comment/{Slug}": {
+      "get": {
+        "summary": "Возвращает запись по SLUG",
+        "operationId": "Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufGetCommentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CommentService"
+        ]
+      },
+      "delete": {
+        "summary": "Удаление записи",
+        "operationId": "Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufDeleteCommentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CommentService"
+        ]
+      },
+      "post": {
+        "summary": "Обновление записи",
+        "operationId": "Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufUpdateCommentResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CommentService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufComment": {
+      "type": "object",
+      "properties": {
+        "Slug": {
+          "type": "string"
+        },
+        "ParentId": {
+          "type": "string"
+        },
+        "UserId": {
+          "type": "string"
+        },
+        "PostId": {
+          "type": "string"
+        },
+        "Content": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "------------------------------------------------------------------------------------------------------------------\n COMMENT\n------------------------------------------------------------------------------------------------------------------"
+    },
+    "protobufCreateCommentResponse": {
+      "type": "object",
+      "properties": {
+        "Comment": {
+          "$ref": "#/definitions/protobufComment"
+        }
+      }
+    },
+    "protobufDeleteCommentResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protobufFindCommentResponse": {
+      "type": "object",
+      "properties": {
+        "Comments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufComment"
+          }
+        }
+      }
+    },
+    "protobufGetCommentResponse": {
+      "type": "object",
+      "properties": {
+        "Comment": {
+          "$ref": "#/definitions/protobufComment"
+        }
+      }
+    },
+    "protobufUpdateCommentResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}

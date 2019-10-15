@@ -1,0 +1,388 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "services/post/protobuf/post.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/author": {
+      "get": {
+        "summary": "Список всех авторов",
+        "operationId": "FindAuthors",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufFindAuthorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PostService"
+        ]
+      }
+    },
+    "/api/v1/author/{Slug}": {
+      "get": {
+        "summary": "Информация о авторе",
+        "operationId": "GetAuthor",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufGetAuthorResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PostService"
+        ]
+      }
+    },
+    "/api/v1/post": {
+      "get": {
+        "summary": "Список всех постов",
+        "operationId": "Find",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufFindPostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PostService"
+        ]
+      },
+      "post": {
+        "summary": "Создание записи",
+        "operationId": "Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufCreatePostResponse"
+            }
+          }
+        },
+        "tags": [
+          "PostService"
+        ]
+      }
+    },
+    "/api/v1/post/category/{Slug}": {
+      "get": {
+        "summary": "Информация о категории и связанных постах",
+        "operationId": "GetPostCategory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufGetPostCategoryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PostService"
+        ]
+      }
+    },
+    "/api/v1/post/{Slug}": {
+      "get": {
+        "summary": "Возвращает запись по SLUG",
+        "operationId": "Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufGetPostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PostService"
+        ]
+      },
+      "delete": {
+        "summary": "Удаление записи",
+        "operationId": "Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufDeletePostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PostService"
+        ]
+      },
+      "post": {
+        "summary": "Обновление записи",
+        "operationId": "Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufUpdatePostResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PostService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAuthor": {
+      "type": "object",
+      "properties": {
+        "Slug": {
+          "type": "string"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        },
+        "SrcAvatar": {
+          "type": "string"
+        },
+        "SrcCover": {
+          "type": "string"
+        },
+        "Posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufPost"
+          }
+        }
+      },
+      "title": "------------------------------------------------------------------------------------------------------------------\n Author\n------------------------------------------------------------------------------------------------------------------"
+    },
+    "protobufCreatePostResponse": {
+      "type": "object",
+      "properties": {
+        "Post": {
+          "$ref": "#/definitions/protobufPost"
+        }
+      }
+    },
+    "protobufDeletePostResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protobufFindAuthorResponse": {
+      "type": "object",
+      "properties": {
+        "Authors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAuthor"
+          }
+        }
+      }
+    },
+    "protobufFindPostResponse": {
+      "type": "object",
+      "properties": {
+        "Posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufPost"
+          }
+        }
+      }
+    },
+    "protobufGetAuthorResponse": {
+      "type": "object",
+      "properties": {
+        "Author": {
+          "$ref": "#/definitions/protobufAuthor"
+        }
+      }
+    },
+    "protobufGetPostCategoryResponse": {
+      "type": "object",
+      "properties": {
+        "Category": {
+          "$ref": "#/definitions/protobufPostCategory"
+        }
+      }
+    },
+    "protobufGetPostResponse": {
+      "type": "object",
+      "properties": {
+        "Post": {
+          "$ref": "#/definitions/protobufPost"
+        }
+      }
+    },
+    "protobufPost": {
+      "type": "object",
+      "properties": {
+        "Slug": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "SubTitle": {
+          "type": "string"
+        },
+        "Content": {
+          "type": "string"
+        },
+        "UserId": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Src": {
+          "type": "string"
+        },
+        "Author": {
+          "$ref": "#/definitions/protobufAuthor"
+        },
+        "Categories": {
+          "type": "string"
+        },
+        "PostCategories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufPostCategory"
+          }
+        },
+        "Comments": {
+          "type": "string"
+        },
+        "PostComments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufPostComment"
+          }
+        }
+      },
+      "title": "------------------------------------------------------------------------------------------------------------------\n POST\n------------------------------------------------------------------------------------------------------------------"
+    },
+    "protobufPostCategory": {
+      "type": "object",
+      "properties": {
+        "Slug": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufPost"
+          }
+        }
+      },
+      "title": "------------------------------------------------------------------------------------------------------------------\n PostCategory\n------------------------------------------------------------------------------------------------------------------"
+    },
+    "protobufPostComment": {
+      "type": "object",
+      "properties": {
+        "Slug": {
+          "type": "string"
+        },
+        "Content": {
+          "type": "string"
+        },
+        "Author": {
+          "$ref": "#/definitions/protobufAuthor"
+        }
+      },
+      "title": "------------------------------------------------------------------------------------------------------------------\n PostComment\n------------------------------------------------------------------------------------------------------------------"
+    },
+    "protobufUpdatePostResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}

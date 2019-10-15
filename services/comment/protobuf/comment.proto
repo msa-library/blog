@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+package protobuf;
+
+import "google/api/annotations.proto";
+
+//Описание сервиса Comment
+service CommentService {
+  
+  //Создание записи
+  rpc Create (CreateCommentRequest) returns (CreateCommentResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/comment"
+    };
+  }              
+
+  //Обновление записи
+  rpc Update (UpdateCommentRequest) returns (UpdateCommentResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/comment/{Slug}"
+    };
+  }     
+
+  //Удаление записи
+  rpc Delete (DeleteCommentRequest) returns (DeleteCommentResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/comment/{Slug}"
+    };
+  }     
+
+  //Возвращает запись по SLUG
+  rpc Get (GetCommentRequest) returns (GetCommentResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/comment/{Slug}"
+    };
+  }     
+
+  //Писк
+  rpc Find (FindCommentRequest) returns (FindCommentResponse) {}                    
+
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  CREATE
+//------------------------------------------------------------------------------------------------------------------
+message CreateCommentRequest {
+  string ParentId = 1;
+  string UserId = 2;
+  string PostId = 3;
+  string Content = 4;
+}
+message CreateCommentResponse {
+  Comment Comment = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  UPDATE
+//------------------------------------------------------------------------------------------------------------------
+message UpdateCommentRequest {
+  string Slug = 1;
+  string Content = 5;
+  int32 Status = 6;
+}
+message UpdateCommentResponse {
+  int32 Status =1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  DELETE
+//------------------------------------------------------------------------------------------------------------------
+message DeleteCommentRequest {
+  string Slug = 1;
+}
+message DeleteCommentResponse {
+  int32 Status =1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  GET
+//------------------------------------------------------------------------------------------------------------------
+message GetCommentRequest {
+  string Slug = 1;
+}
+message GetCommentResponse {
+  Comment Comment = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  FIND
+//------------------------------------------------------------------------------------------------------------------
+message FindCommentRequest {
+  string PostId = 1;
+}
+message FindCommentResponse {
+  repeated Comment Comments = 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------
+//  COMMENT
+//------------------------------------------------------------------------------------------------------------------
+message Comment {
+  string Slug = 1;
+  string ParentId = 2;
+  string UserId = 3;
+  string PostId = 4;
+  string Content = 5;
+  int32 Status = 6;
+  
+}

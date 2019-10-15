@@ -1,0 +1,199 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "services/category/protobuf/category.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/category": {
+      "get": {
+        "summary": "Писк",
+        "operationId": "Find",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufFindCategoryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CategoryService"
+        ]
+      },
+      "post": {
+        "summary": "Создание записи",
+        "operationId": "Create",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufCreateCategoryResponse"
+            }
+          }
+        },
+        "tags": [
+          "CategoryService"
+        ]
+      }
+    },
+    "/api/v1/category/{Slug}": {
+      "get": {
+        "summary": "Возвращает запись по SLUG",
+        "operationId": "Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufGetCategoryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CategoryService"
+        ]
+      },
+      "delete": {
+        "summary": "Удаление записи",
+        "operationId": "Delete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufDeleteCategoryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CategoryService"
+        ]
+      },
+      "post": {
+        "summary": "Обновление записи",
+        "operationId": "Update",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufUpdateCategoryResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Slug",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CategoryService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufCategory": {
+      "type": "object",
+      "properties": {
+        "Slug": {
+          "type": "string"
+        },
+        "ParentId": {
+          "type": "string"
+        },
+        "Path": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "------------------------------------------------------------------------------------------------------------------\n CATEGORY\n------------------------------------------------------------------------------------------------------------------"
+    },
+    "protobufCreateCategoryResponse": {
+      "type": "object",
+      "properties": {
+        "Category": {
+          "$ref": "#/definitions/protobufCategory"
+        }
+      }
+    },
+    "protobufDeleteCategoryResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protobufFindCategoryResponse": {
+      "type": "object",
+      "properties": {
+        "Categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufCategory"
+          }
+        }
+      }
+    },
+    "protobufGetCategoryResponse": {
+      "type": "object",
+      "properties": {
+        "Category": {
+          "$ref": "#/definitions/protobufCategory"
+        }
+      }
+    },
+    "protobufUpdateCategoryResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}

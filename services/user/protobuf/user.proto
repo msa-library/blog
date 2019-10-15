@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+package protobuf;
+
+import "google/api/annotations.proto";
+
+//------------------------------------------------------------------------------------------------------------------
+// Описание сервиса User
+//------------------------------------------------------------------------------------------------------------------
+service UserService {
+  
+  //Регистрация пользовател
+  rpc SignUp (SignUpRequest) returns (SignUpResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/user/signup"
+      
+    };
+  } 
+  
+  //Аутентификация пользовател             
+  rpc SignIn (SignInRequest) returns (SignInResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/user/signin"
+    };
+  }                      
+
+  //Lgout
+  rpc LogOut (LogOutRequest) returns (LogOutResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/user/logout"
+    };
+  }
+
+  //------------------------------------------------------------------------------------------------------------------
+  //  CRUD методы
+  //------------------------------------------------------------------------------------------------------------------
+  rpc Create (CreateUserRequest) returns (CreateUserResponse) {}              //Создание пользователей
+  rpc Update (UpdateUserRequest) returns (UpdateUserResponse) {}              //Обновление пользователей
+  rpc Delete (DeleteUserRequest) returns (DeleteUserResponse) {}              //Удаление пользователей
+  rpc Get (GetUserRequest) returns (GetUserResponse) {}                       //Возвращает пользователя по SLUG
+  rpc Find (FindUserRequest) returns (FindUserResponse) {}                    //Список пользователей
+
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  SignUp
+//------------------------------------------------------------------------------------------------------------------
+message SignUpRequest {
+  string Username = 1;
+  string Password = 2;
+  string FirstName = 3;
+  string LastName = 4;
+}
+message SignUpResponse {
+  string Slug = 1;
+  string Username = 2;
+  string Role = 3;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  SignIn
+//------------------------------------------------------------------------------------------------------------------
+message SignInRequest {
+  string Username = 1;
+  string Password = 2;
+}
+message SignInResponse {
+  string Slug = 1;
+  string Username = 2;
+  string Role = 3;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  LogOut
+//------------------------------------------------------------------------------------------------------------------
+message LogOutRequest {
+  string Token = 1;
+}
+message LogOutResponse {
+  int32 Status = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  CREATE
+//------------------------------------------------------------------------------------------------------------------
+message CreateUserRequest {
+  string Username = 1;
+  string Email = 2;
+  string Password = 3;
+  string Phone = 4;
+  string FirstName = 5;
+  string LastName = 6;
+}
+message CreateUserResponse {
+  User User = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  UPDATE
+//------------------------------------------------------------------------------------------------------------------
+message UpdateUserRequest {
+  string Slug = 1;
+  string Email = 2;
+  string Password = 3;
+  string Phone = 4;
+  string FirstName = 5;
+  string LastName = 6;
+}
+message UpdateUserResponse {
+  int32 Status =1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  DELETE
+//------------------------------------------------------------------------------------------------------------------
+message DeleteUserRequest {
+  string Slug = 1;
+}
+message DeleteUserResponse {
+  int32 Status =1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  GET
+//------------------------------------------------------------------------------------------------------------------
+message GetUserRequest {
+  string Slug = 1;
+}
+message GetUserResponse {
+  User User = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  FIND USERS
+//------------------------------------------------------------------------------------------------------------------
+message FindUserRequest {
+  string Slug = 1;
+}
+message FindUserResponse {
+  repeated User Users = 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------
+//  USER
+//------------------------------------------------------------------------------------------------------------------
+message User {
+  string Username = 1;
+  string Slug = 2;
+  string Email = 3;
+  string Password = 4;
+  string FirstName = 5;
+  string LastName = 6;
+  string Phone = 7;
+}

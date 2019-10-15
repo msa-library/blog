@@ -1,0 +1,189 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "services/user/protobuf/user.proto",
+    "version": "version not set"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/user/logout": {
+      "get": {
+        "summary": "Lgout",
+        "operationId": "LogOut",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufLogOutResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Token",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/api/v1/user/signin": {
+      "post": {
+        "summary": "Аутентификация пользовател",
+        "operationId": "SignIn",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufSignInResponse"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/api/v1/user/signup": {
+      "post": {
+        "summary": "Регистрация пользовател",
+        "operationId": "SignUp",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/protobufSignUpResponse"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufCreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "User": {
+          "$ref": "#/definitions/protobufUser"
+        }
+      }
+    },
+    "protobufDeleteUserResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protobufFindUserResponse": {
+      "type": "object",
+      "properties": {
+        "Users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufUser"
+          }
+        }
+      }
+    },
+    "protobufGetUserResponse": {
+      "type": "object",
+      "properties": {
+        "User": {
+          "$ref": "#/definitions/protobufUser"
+        }
+      }
+    },
+    "protobufLogOutResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protobufSignInResponse": {
+      "type": "object",
+      "properties": {
+        "Slug": {
+          "type": "string"
+        },
+        "Username": {
+          "type": "string"
+        },
+        "Role": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufSignUpResponse": {
+      "type": "object",
+      "properties": {
+        "Slug": {
+          "type": "string"
+        },
+        "Username": {
+          "type": "string"
+        },
+        "Role": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufUpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "Status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "protobufUser": {
+      "type": "object",
+      "properties": {
+        "Username": {
+          "type": "string"
+        },
+        "Slug": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        },
+        "Phone": {
+          "type": "string"
+        }
+      },
+      "title": "------------------------------------------------------------------------------------------------------------------\n USER\n------------------------------------------------------------------------------------------------------------------"
+    }
+  }
+}

@@ -1,0 +1,204 @@
+syntax = "proto3";
+
+package protobuf;
+
+import "google/api/annotations.proto";
+
+// Описание сервиса Post
+service PostService {
+  
+  //Создание записи
+  rpc Create (CreatePostRequest) returns (CreatePostResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/post"
+    };
+  }              
+
+  //Обновление записи
+  rpc Update (UpdatePostRequest) returns (UpdatePostResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/post/{Slug}"
+    };
+  }     
+
+  //Удаление записи
+  rpc Delete (DeletePostRequest) returns (DeletePostResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/post/{Slug}"
+    };
+  }     
+
+  //Информация о категории и связанных постах
+  rpc GetPostCategory (GetPostCategoryRequest) returns (GetPostCategoryResponse) {      //Возвращает категорию и связанные посты
+    option (google.api.http) = {
+      get: "/api/v1/post/category/{Slug}"
+    };
+  }      
+
+  //Список всех постов
+  rpc Find (FindPostRequest) returns (FindPostResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/post"
+    };
+  }                    
+
+  
+  //Возвращает запись по SLUG
+  rpc Get (GetPostRequest) returns (GetPostResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/post/{Slug}"
+    };
+  } 
+
+  //Информация о авторе
+  rpc GetAuthor (GetAuthorRequest) returns (GetAuthorResponse) {               //Возвращает одного автора по SLUG
+    option (google.api.http) = {
+      get: "/api/v1/author/{Slug}"
+    };
+  }
+
+  //Список всех авторов
+  rpc FindAuthors (FindAuthorRequest) returns (FindAuthorResponse) {           //Возвращает список авторов
+    option (google.api.http) = {
+      get: "/api/v1/author"
+    };
+  }
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  CREATE
+//------------------------------------------------------------------------------------------------------------------
+message CreatePostRequest {
+  string Title = 1;
+  string SubTitle = 2;
+  string Content = 3;
+  string Categories = 4;
+}
+message CreatePostResponse {
+  Post Post = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  UPDATE
+//------------------------------------------------------------------------------------------------------------------
+message UpdatePostRequest {
+  string Slug = 1;
+  string Title = 2;
+  string SubTitle = 3;
+  string Content = 4;
+  int32 Status = 5;
+  string Categories = 6;
+}
+message UpdatePostResponse {
+  int32 Status =1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  DELETE
+//------------------------------------------------------------------------------------------------------------------
+message DeletePostRequest {
+  string Slug = 1;
+}
+message DeletePostResponse {
+  int32 Status =1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  GET
+//------------------------------------------------------------------------------------------------------------------
+message GetPostRequest {
+  string Slug = 1;
+}
+message GetPostResponse {
+  Post Post = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  FIND POST
+//------------------------------------------------------------------------------------------------------------------
+message FindPostRequest {
+  string Slug = 1;
+}
+message FindPostResponse {
+  repeated Post Posts = 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------
+//  GET AUTHOR
+//------------------------------------------------------------------------------------------------------------------
+message GetAuthorRequest {
+  string Slug = 1;
+}
+message GetAuthorResponse {
+  Author Author = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  FIND AUTHOR
+//------------------------------------------------------------------------------------------------------------------
+message FindAuthorRequest {
+  string Slug = 1;
+}
+message FindAuthorResponse {
+  repeated Author Authors = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  GET CATEGORY
+//------------------------------------------------------------------------------------------------------------------
+message GetPostCategoryRequest {
+  string Slug = 1;
+}
+message GetPostCategoryResponse {
+  PostCategory Category = 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------
+//  POST
+//------------------------------------------------------------------------------------------------------------------
+message Post {
+  string Slug = 1;
+  string Title = 2;
+  string SubTitle = 3;
+  string Content = 4;
+  string UserId = 5;
+  int32 Status = 6;
+  string Src = 7;
+  Author Author = 8;
+  string Categories = 9;
+  repeated PostCategory PostCategories = 10;
+  string Comments = 11;
+  repeated PostComment PostComments = 12;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  Author
+//------------------------------------------------------------------------------------------------------------------
+message Author {
+  string Slug = 1;
+  string FirstName = 2;
+  string LastName = 3;
+  string SrcAvatar = 4;
+  string SrcCover = 5;
+  repeated Post Posts = 6;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  PostCategory
+//------------------------------------------------------------------------------------------------------------------
+message PostCategory {
+  string Slug = 1;
+  string Name = 2;
+  repeated Post Posts = 3;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  PostComment
+//------------------------------------------------------------------------------------------------------------------
+message PostComment {
+  string Slug = 1;
+  string Content = 2;
+  Author Author = 3;
+}

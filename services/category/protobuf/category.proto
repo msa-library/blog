@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+package protobuf;
+
+import "google/api/annotations.proto";
+
+//Описание сервиса Category
+service CategoryService {
+  
+  //Создание записи
+  rpc Create (CreateCategoryRequest) returns (CreateCategoryResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/category"
+    };
+  }              
+
+  //Обновление записи
+  rpc Update (UpdateCategoryRequest) returns (UpdateCategoryResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/category/{Slug}"
+    };
+  }     
+
+  //Удаление записи
+  rpc Delete (DeleteCategoryRequest) returns (DeleteCategoryResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/category/{Slug}"
+    };
+  }     
+
+  //Возвращает запись по SLUG
+  rpc Get (GetCategoryRequest) returns (GetCategoryResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/category/{Slug}"
+    };
+  }     
+
+  //Писк
+  rpc Find (FindCategoryRequest) returns (FindCategoryResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/category"
+    };
+  }                    
+
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  CREATE
+//------------------------------------------------------------------------------------------------------------------
+message CreateCategoryRequest {
+  string ParentId = 1;
+  string Name = 2;
+  string Path = 3;
+}
+message CreateCategoryResponse {
+  Category Category = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  UPDATE
+//------------------------------------------------------------------------------------------------------------------
+message UpdateCategoryRequest {
+  string Slug = 1;
+  string ParentId = 2;
+  string Name = 4;
+  string Path = 5;
+  int32 Status = 6;
+}
+message UpdateCategoryResponse {
+  int32 Status =1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  DELETE
+//------------------------------------------------------------------------------------------------------------------
+message DeleteCategoryRequest {
+  string Slug = 1;
+}
+message DeleteCategoryResponse {
+  int32 Status =1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  GET
+//------------------------------------------------------------------------------------------------------------------
+message GetCategoryRequest {
+  string Slug = 1;
+}
+message GetCategoryResponse {
+  Category Category = 1;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+//  FIND
+//------------------------------------------------------------------------------------------------------------------
+message FindCategoryRequest {
+  string Slug = 1;
+}
+message FindCategoryResponse {
+  repeated Category Categories = 1;
+}
+
+
+//------------------------------------------------------------------------------------------------------------------
+//  CATEGORY
+//------------------------------------------------------------------------------------------------------------------
+message Category {
+  string Slug = 1;
+  string ParentId = 2;
+  string Path = 3;
+  string Name = 4;
+  int32 Status = 5;
+}
