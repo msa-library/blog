@@ -13,12 +13,14 @@
 
       <v-toolbar-items>
         
-        <v-btn icon to="/"><v-icon>mdi-home</v-icon></v-btn>
-        <v-btn text to="/signin" v-if="this.isGuest">Вход</v-btn>
-        <v-btn icon to="/post/create" v-if="!this.isGuest">
-          <v-icon>mdi-plus-circle</v-icon>
+        <v-btn text to="/">Главная</v-btn>
+        
+        <v-btn text to="/post/create" v-if="!this.isGuest">
+          Написать
         </v-btn>
-         <v-menu left bottom v-if="!this.isGuest" nudge-bottom="55">
+
+        <v-btn text to="/signin" v-if="this.isGuest">Вход</v-btn>
+        <v-menu left bottom v-if="!this.isGuest" nudge-bottom="55">
           <template v-slot:activator="{ on }">
             <v-btn icon v-on="on">
               <v-icon>person_outline</v-icon>
@@ -40,10 +42,6 @@
               <v-list-item-title >Новая категория</v-list-item-title>
             </v-list-item>
             <v-divider></v-divider>
-            <v-list-item>
-              <v-list-item-icon><v-icon>person_outline</v-icon></v-list-item-icon>
-              <v-list-item-title to="/">Мой профиль</v-list-item-title>
-            </v-list-item>
             <v-list-item>
               <v-list-item-icon><v-icon>exit_to_app</v-icon></v-list-item-icon>
               <v-list-item-title @click="logout">Выход</v-list-item-title>
